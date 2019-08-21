@@ -1,8 +1,8 @@
 import { expect, tap } from '@pushrocks/tapbundle';
-import * as typedrequest from '../ts/index'
+import * as typedrequest from '../ts/index';
 
 tap.test('first test', async () => {
-  console.log(typedrequest.standardExport)
-})
+  console.log(typedrequest.standardExport);
+});
 
-tap.start()
+tap.start();

@@ -20,5 +20,16 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "files": [
+    "ts/*",
+    "ts_web/*",
+    "dist/*",
+    "dist_web/*",
+    "dist_ts_web/*",
+    "assets/*",
+    "cli.js",
+    "npmextra.json",
+    "readme.md"
+  ]
 }

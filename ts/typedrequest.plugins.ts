@@ -1,4 +1,2 @@
 const removeme = {};
-export {
-  removeme
-}
+export { removeme };
