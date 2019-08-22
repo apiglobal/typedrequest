@@ -17,10 +17,13 @@
     "@gitzone/tstest": "^1.0.15",
     "@pushrocks/tapbundle": "^3.0.7",
     "@types/node": "^10.11.7",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0"
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@apiglobal/typedrequest-interfaces": "^1.0.4",
+    "@pushrocks/smartrequest": "^1.1.23"
+  },
   "files": [
     "ts/*",
     "ts_web/*",
