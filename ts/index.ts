@@ -8,7 +8,7 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   constructor(urlEndPointArg: string, methodArg: T['method']) {
     this.urlEndPoint = urlEndPointArg;
     this.method = methodArg;
-  };
+  }
 
   /**
    * firest the request
@@ -20,7 +20,7 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
         method: this.method,
         request: fireArg,
         response: null
-      } 
+      }
     });
     return response.body.response;
   }

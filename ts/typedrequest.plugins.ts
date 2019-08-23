@@ -1,13 +1,9 @@
 // apiglobal scope
 import * as typedRequestInterfaces from '@apiglobal/typedrequest-interfaces';
 
-export {
-  typedRequestInterfaces
-};
+export { typedRequestInterfaces };
 
 // pushrocks scope
 import * as smartrequest from '@pushrocks/smartrequest';
 
-export {
-  smartrequest
-};
+export { smartrequest };
