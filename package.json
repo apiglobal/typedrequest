@@ -21,7 +21,7 @@
     "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
-    "@apiglobal/typedrequest-interfaces": "^1.0.4",
+    "@apiglobal/typedrequest-interfaces": "^1.0.5",
     "@pushrocks/smartrequest": "^1.1.23"
   },
   "files": [
