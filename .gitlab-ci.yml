@@ -29,6 +29,8 @@ snyk:
   stage: security
   script:
     - npmci npm prepare
+    - npmci node install stable
+    - npmci command npm cache verify
     - npmci command npm install -g snyk
     - npmci command npm install --ignore-scripts
     - npmci command snyk test
