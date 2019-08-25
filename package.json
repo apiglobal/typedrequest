@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@apiglobal/typedrequest-interfaces": "^1.0.7",
+    "@pushrocks/lik": "^3.0.11",
+    "@pushrocks/smartjson": "^3.0.8",
     "@pushrocks/smartrequest": "^1.1.23"
   },
   "files": [
