@@ -16,7 +16,7 @@ export class TypedRouter {
    * adds the handler to the routing map
    * @param handlerArg
    */
-  public addTypedHandler(handlerArg: TypedHandler<plugins.typedRequestInterfaces.ITypedRequest>) {
+  public addTypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest>(handlerArg: TypedHandler<T>) {
     this.handlerMap.add(handlerArg);
   }
 
