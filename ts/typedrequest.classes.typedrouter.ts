@@ -27,7 +27,7 @@ export class TypedRouter {
 
     if (!typedHandler) {
       const availableMethods: string[] = [];
-      this.handlerMap.forEach(async (handler) => {
+      await this.handlerMap.forEach(async (handler) => {
         availableMethods.push(handler.method);
       });
       console.log(`Cannot find method for ${typedHandler}`);
