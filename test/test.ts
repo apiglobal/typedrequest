@@ -2,7 +2,6 @@ import { expect, tap } from '@pushrocks/tapbundle';
 import * as smartexpress from '@pushrocks/smartexpress';
 
 import * as typedrequest from '../ts/index';
-import { async } from 'rxjs/internal/scheduler/async';
 
 let testServer: smartexpress.Server;
 
