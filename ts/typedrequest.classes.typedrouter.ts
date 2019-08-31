@@ -25,6 +25,16 @@ export class TypedRouter {
       return handler.method === typedRequest.method;
     });
 
+    if (!typedHandler) {
+      const availableMethods: string[] = [];
+      this.handlerMap.forEach(async (handler) => {
+        availableMethods.push(handler.method);
+      });
+      console.log(`Cannot find method for ${typedHandler}`);
+      console.log(`Available methods are:`);
+      console.log(availableMethods);
+    }
+
     typedRequest = await typedHandler.addResponse(typedRequest);
     return typedRequest;
   }
