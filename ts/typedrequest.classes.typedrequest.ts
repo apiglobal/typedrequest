@@ -16,11 +16,11 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   public async fire(fireArg: T['request']): Promise<T['response']> {
     const response = await plugins.smartrequest.request(this.urlEndPoint, {
       method: 'POST',
-      requestBody: {
+      requestBody: JSON.stringify({
         method: this.method,
         request: fireArg,
         response: null
-      }
+      })
     });
     return response.body.response;
   }
