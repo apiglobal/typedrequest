@@ -33,6 +33,11 @@ export class TypedRouter {
       console.log(`Cannot find method for ${typedHandler}`);
       console.log(`Available methods are:`);
       console.log(availableMethods);
+      typedRequest.error = {
+        text: 'There is no available method for this call on the server side',
+        data: {}
+      };
+      return typedRequest;
     }
 
     typedRequest = await typedHandler.addResponse(typedRequest);

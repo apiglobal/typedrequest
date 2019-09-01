@@ -21,6 +21,11 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
         response: null
       }
     });
+    const responseBody: T = response.body;
+    if (responseBody.error) {
+      console.log(responseBody.error.text);
+      console.log(responseBody.error.data);
+    }
     return response.body.response;
   }
 }
