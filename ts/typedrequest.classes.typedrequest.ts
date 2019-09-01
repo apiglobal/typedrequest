@@ -14,13 +14,12 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
    * firest the request
    */
   public async fire(fireArg: T['request']): Promise<T['response']> {
-    const response = await plugins.smartrequest.request(this.urlEndPoint, {
-      method: 'POST',
-      requestBody: JSON.stringify({
+    const response = await plugins.smartrequest.postJson(this.urlEndPoint, {
+      requestBody: {
         method: this.method,
         request: fireArg,
         response: null
-      })
+      }
     });
     return response.body.response;
   }
