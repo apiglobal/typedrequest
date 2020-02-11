@@ -17,7 +17,7 @@ interface ITestReqRes {
 }
 
 tap.test('should create a typedHandler', async () => {
-  testTypedHandler = new typedrequest.TypedHandler<ITestReqRes>('hi', async (reqArg) => {
+  testTypedHandler = new typedrequest.TypedHandler<ITestReqRes>('hi', async reqArg => {
     return {
       surname: 'wow'
     };
@@ -33,10 +33,13 @@ tap.test('should spawn a server to test with', async () => {
 });
 
 tap.test('should define a testHandler', async () => {
-  testServer.addRoute('/testroute', new smartexpress.Handler('POST', async (req, res) => {
-    console.log(req.body);
-    res.json(await testTypedHandler.addResponse(req.body));
-  }));
+  testServer.addRoute(
+    '/testroute',
+    new smartexpress.Handler('POST', async (req, res) => {
+      console.log(req.body);
+      res.json(await testTypedHandler.addResponse(req.body));
+    })
+  );
 });
 
 tap.test('should start the server', async () => {
@@ -44,7 +47,10 @@ tap.test('should start the server', async () => {
 });
 
 tap.test('should fire a request', async () => {
-  const typedRequest = new typedrequest.TypedRequest<ITestReqRes>('http://localhost:3000/testroute', 'hi');
+  const typedRequest = new typedrequest.TypedRequest<ITestReqRes>(
+    'http://localhost:3000/testroute',
+    'hi'
+  );
   const response = await typedRequest.fire({
     name: 'really'
   });

@@ -1,6 +1,8 @@
 import * as plugins from './typedrequest.plugins';
 
-type THandlerFunction<T extends plugins.typedRequestInterfaces.ITypedRequest> = (requestArg: T['request']) => Promise<T['response']>;
+type THandlerFunction<T extends plugins.typedRequestInterfaces.ITypedRequest> = (
+  requestArg: T['request']
+) => Promise<T['response']>;
 
 /**
  * typed handler for dealing with typed requests
@@ -20,7 +22,9 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
    */
   public async addResponse(typedRequestArg: T) {
     if (typedRequestArg.method !== this.method) {
-      throw new Error('this handler has been given a wrong method to answer to. Please use a TypedRouter to filter requests');
+      throw new Error(
+        'this handler has been given a wrong method to answer to. Please use a TypedRouter to filter requests'
+      );
     }
     const response = await this.handlerFunction(typedRequestArg.request);
     typedRequestArg.response = response;

@@ -13,27 +13,28 @@
     "format": "(gitzone format)"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.0.22",
-    "@gitzone/tstest": "^1.0.15",
-    "@pushrocks/smartexpress": "^3.0.40",
-    "@pushrocks/tapbundle": "^3.0.13",
-    "@types/node": "^12.7.2",
-    "tslint": "^5.19.0",
+    "@gitzone/tsbuild": "^2.1.17",
+    "@gitzone/tstest": "^1.0.28",
+    "@pushrocks/smartexpress": "^3.0.57",
+    "@pushrocks/tapbundle": "^3.2.0",
+    "@types/node": "^13.7.1",
+    "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
-    "@apiglobal/typedrequest-interfaces": "^1.0.7",
-    "@pushrocks/lik": "^3.0.11",
-    "@pushrocks/smartjson": "^3.0.8",
-    "@pushrocks/smartrequest": "^1.1.23"
+    "@apiglobal/typedrequest-interfaces": "^1.0.12",
+    "@pushrocks/lik": "^3.0.17",
+    "@pushrocks/smartdelay": "^2.0.6",
+    "@pushrocks/smartjson": "^3.0.10",
+    "@pushrocks/smartrequest": "^1.1.47"
   },
   "files": [
-    "ts/*",
-    "ts_web/*",
-    "dist/*",
-    "dist_web/*",
-    "dist_ts_web/*",
-    "assets/*",
+    "ts/**/*",
+    "ts_web/**/*",
+    "dist/**/*",
+    "dist_web/**/*",
+    "dist_ts_web/**/*",
+    "assets/**/*",
     "cli.js",
     "npmextra.json",
     "readme.md"

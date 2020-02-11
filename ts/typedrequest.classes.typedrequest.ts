@@ -25,7 +25,11 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
     if (responseBody.error) {
       console.log(responseBody.error.text);
       console.log(responseBody.error.data);
+      return null;
     }
-    return response.body.response;
+    if (responseBody.retry) {
+      console.log('server requested retry');
+    };
+    return responseBody.response;
   }
 }

@@ -16,7 +16,9 @@ export class TypedRouter {
    * adds the handler to the routing map
    * @param handlerArg
    */
-  public addTypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest>(handlerArg: TypedHandler<T>) {
+  public addTypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest>(
+    handlerArg: TypedHandler<T>
+  ) {
     this.handlerMap.add(handlerArg);
   }
 
@@ -27,7 +29,7 @@ export class TypedRouter {
 
     if (!typedHandler) {
       const availableMethods: string[] = [];
-      await this.handlerMap.forEach(async (handler) => {
+      await this.handlerMap.forEach(async handler => {
         availableMethods.push(handler.method);
       });
       console.log(`Cannot find method for ${typedHandler}`);
