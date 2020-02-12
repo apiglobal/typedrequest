@@ -28,8 +28,11 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
       return null;
     }
     if (responseBody.retry) {
-      console.log('server requested retry');
-    };
+      console.log(`server requested retry for the following reason: ${responseBody.retry.reason}`);
+      await plugins.smartdelay.delayFor(responseBody.retry.waitForMs);
+      // tslint:disable-next-line: no-return-await
+      return await this.fire(fireArg);
+    }
     return responseBody.response;
   }
 }
