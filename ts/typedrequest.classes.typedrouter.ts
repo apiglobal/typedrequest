@@ -10,11 +10,9 @@ import { TypedHandler } from './typedrequest.classes.typedhandler';
 export class TypedRouter {
   public upstreamTypedRouter: TypedRouter;
 
-  public routerMap = new plugins.lik.Objectmap<
-    TypedRouter
-  >();
+  public routerMap = new plugins.lik.ObjectMap<TypedRouter>();
 
-  public handlerMap = new plugins.lik.Objectmap<
+  public handlerMap = new plugins.lik.ObjectMap<
     TypedHandler<plugins.typedRequestInterfaces.ITypedRequest>
   >();
 
@@ -28,7 +26,9 @@ export class TypedRouter {
     // lets check for deduplication
     const existingTypedHandler = this.getTypedHandlerForMethod(typedHandlerArg.method);
     if (existingTypedHandler) {
-      throw new Error(`a TypedHandler for ${typedHandlerArg.method} alredy exists! Can't add another one.`);
+      throw new Error(
+        `a TypedHandler for ${typedHandlerArg.method} alredy exists! Can't add another one.`
+      );
     }
 
     this.handlerMap.add(typedHandlerArg);
@@ -36,7 +36,7 @@ export class TypedRouter {
 
   /**
    * adds another sub typedRouter
-   * @param typedRequest 
+   * @param typedRequest
    */
   public addTypedRouter(typedRouterArg: TypedRouter) {
     this.routerMap.add(typedRouterArg);
@@ -47,24 +47,27 @@ export class TypedRouter {
   }
 
   public checkForTypedHandler(methodArg: string): boolean {
-    return !! this.getTypedHandlerForMethod(methodArg);
+    return !!this.getTypedHandlerForMethod(methodArg);
   }
 
   /**
    * gets a typed Router from the router chain, upstream and downstream
    * @param methodArg
-   * @param checkUpstreamRouter 
+   * @param checkUpstreamRouter
    */
-  public getTypedHandlerForMethod(methodArg: string, checkUpstreamRouter = true): TypedHandler<any> {
+  public getTypedHandlerForMethod(
+    methodArg: string,
+    checkUpstreamRouter = true
+  ): TypedHandler<any> {
     let typedHandler: TypedHandler<any>;
-    
+
     if (this.upstreamTypedRouter && checkUpstreamRouter) {
       typedHandler = this.upstreamTypedRouter.getTypedHandlerForMethod(methodArg);
     } else {
       typedHandler = this.handlerMap.find(handler => {
         return handler.method === methodArg;
       });
-  
+
       if (!typedHandler) {
         this.routerMap.getArray().forEach(typedRouter => {
           if (!typedHandler) {
@@ -76,7 +79,6 @@ export class TypedRouter {
 
     return typedHandler;
   }
-
 
   /**
    * routes a typed request to a handler
