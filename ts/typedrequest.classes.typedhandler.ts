@@ -1,4 +1,5 @@
 import * as plugins from './typedrequest.plugins';
+import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
 
 type THandlerFunction<T extends plugins.typedRequestInterfaces.ITypedRequest> = (
   requestArg: T['request']
@@ -26,8 +27,27 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
         'this handler has been given a wrong method to answer to. Please use a TypedRouter to filter requests'
       );
     }
-    const response = await this.handlerFunction(typedRequestArg.request);
-    typedRequestArg.response = response;
+    let typedResponseError: TypedResponseError;
+    const response = await this.handlerFunction(typedRequestArg.request).catch(e => {
+      if (e instanceof TypedResponseError) {
+        typedResponseError = e;
+      } else {
+        throw e;
+      }
+    });
+
+    if (typedResponseError) {
+      typedRequestArg.error = {
+        text: typedResponseError.errorText,
+        data: typedResponseError.errorData
+      };
+    }
+    
+    if (response) {
+      typedRequestArg.response = response;
+    }
+
+    
     return typedRequestArg;
   }
 }
