@@ -92,7 +92,7 @@ export class TypedRouter {
       await this.handlerMap.forEach(async handler => {
         availableMethods.push(handler.method);
       });
-      console.log(`Cannot find method for ${typedHandler}`);
+      console.log(`Cannot find handler for methodname ${typedRequestArg.method}`);
       console.log(`Available methods are:`);
       console.log(availableMethods);
       typedRequestArg.error = {
