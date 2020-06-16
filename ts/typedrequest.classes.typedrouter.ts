@@ -88,13 +88,7 @@ export class TypedRouter {
     const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 
     if (!typedHandler) {
-      const availableMethods: string[] = [];
-      await this.handlerMap.forEach(async handler => {
-        availableMethods.push(handler.method);
-      });
       console.log(`Cannot find handler for methodname ${typedRequestArg.method}`);
-      console.log(`Available methods are:`);
-      console.log(availableMethods);
       typedRequestArg.error = {
         text: 'There is no available method for this call on the server side',
         data: {}
