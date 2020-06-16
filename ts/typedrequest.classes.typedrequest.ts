@@ -1,4 +1,5 @@
 import * as plugins from './typedrequest.plugins';
+import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
 
 export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest> {
   public urlEndPoint: string;
@@ -23,8 +24,10 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
     });
     const responseBody: T = response.body;
     if (responseBody.error) {
-      console.log(responseBody.error.text);
-      console.log(responseBody.error.data);
+      console.error(`Got an error ${responseBody.error.text} with data ${JSON.stringify(responseBody.error.data)}`);
+      if (!responseBody.retry) {
+        throw new TypedResponseError(responseBody.error.text, responseBody.error.data);
+      }
       return null;
     }
     if (responseBody.retry) {
