@@ -2,6 +2,7 @@ import * as plugins from './typedrequest.plugins';
 import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
 
 export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest> {
+  public webrequest = new plugins.webrequest.WebRequest();
   public urlEndPoint: string;
   public method: string;
 
@@ -15,16 +16,18 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
    * firest the request
    */
   public async fire(fireArg: T['request']): Promise<T['response']> {
-    const response = await plugins.smartrequest.postJson(this.urlEndPoint, {
-      requestBody: {
-        method: this.method,
-        request: fireArg,
-        response: null
-      }
+    const response = await this.webrequest.postJson(this.urlEndPoint, {
+      method: this.method,
+      request: fireArg,
+      response: null
     });
-    const responseBody: T = response.body;
+    const responseBody: T = response;
     if (responseBody.error) {
-      console.error(`Got an error ${responseBody.error.text} with data ${JSON.stringify(responseBody.error.data)}`);
+      console.error(
+        `Got an error ${responseBody.error.text} with data ${JSON.stringify(
+          responseBody.error.data
+        )}`
+      );
       if (!responseBody.retry) {
         throw new TypedResponseError(responseBody.error.text, responseBody.error.data);
       }

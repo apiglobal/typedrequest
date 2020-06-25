@@ -42,12 +42,11 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
         data: typedResponseError.errorData
       };
     }
-    
+
     if (response) {
       typedRequestArg.response = response;
     }
 
-    
     return typedRequestArg;
   }
 }

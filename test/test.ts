@@ -54,6 +54,7 @@ tap.test('should fire a request', async () => {
   const response = await typedRequest.fire({
     name: 'really'
   });
+  console.log('this is the response:');
   console.log(response);
   expect(response.surname).to.equal('wow');
 });
