@@ -1,6 +1,7 @@
 import * as plugins from './typedrequest.plugins';
 
 import { TypedHandler } from './typedrequest.classes.typedhandler';
+import { TypedRequest } from './typedrequest.classes.typedrequest';
 
 /**
  * A typed router decides on which typed handler to call based on the method
@@ -11,10 +12,21 @@ export class TypedRouter {
   public upstreamTypedRouter: TypedRouter;
 
   public routerMap = new plugins.lik.ObjectMap<TypedRouter>();
+  public typedRequestMap = new plugins.lik.ObjectMap<TypedRequest<any>>();
 
   public handlerMap = new plugins.lik.ObjectMap<
     TypedHandler<plugins.typedRequestInterfaces.ITypedRequest>
   >();
+
+  public fireEventInterestMap = new plugins.lik.InterestMap((correlationId: string) => correlationId);
+
+  public addTypedRequest(typedRequestArg: TypedRequest<any>) {
+    if(!this.typedRequestMap.checkForObject(typedRequestArg)) {
+      this.typedRequestMap.add(typedRequestArg);
+      typedRequestArg.addTypedRouterForResponse(this);
+    }
+  }
+
 
   /**
    * adds the handler to the routing map
@@ -64,12 +76,12 @@ export class TypedRouter {
     if (this.upstreamTypedRouter && checkUpstreamRouter) {
       typedHandler = this.upstreamTypedRouter.getTypedHandlerForMethod(methodArg);
     } else {
-      typedHandler = this.handlerMap.find(handler => {
+      typedHandler = this.handlerMap.find((handler) => {
         return handler.method === methodArg;
       });
 
       if (!typedHandler) {
-        this.routerMap.getArray().forEach(typedRouter => {
+        this.routerMap.getArray().forEach((typedRouter) => {
           if (!typedHandler) {
             typedHandler = typedRouter.getTypedHandlerForMethod(methodArg, false);
           }
@@ -81,22 +93,27 @@ export class TypedRouter {
   }
 
   /**
-   * routes a typed request to a handler
+   * if typedrequest object has correlation.phase === 'request' -> routes a typed request object to a handler
+   * if typedrequest object has correlation.phase === 'response' -> routes a typed request object to request fire event
    * @param typedRequestArg
    */
   public async routeAndAddResponse(typedRequestArg: plugins.typedRequestInterfaces.ITypedRequest) {
-    const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
+    if (typedRequestArg.correlation.phase === 'request') {
+      const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 
-    if (!typedHandler) {
-      console.log(`Cannot find handler for methodname ${typedRequestArg.method}`);
-      typedRequestArg.error = {
-        text: 'There is no available method for this call on the server side',
-        data: {}
-      };
-      return typedRequestArg;
+      if (!typedHandler) {
+        console.log(`Cannot find handler for methodname ${typedRequestArg.method}`);
+        typedRequestArg.error = {
+          text: 'There is no available method for this call on the server side',
+          data: {},
+        };
+        return typedRequestArg;
+      }
+
+      typedRequestArg = await typedHandler.addResponse(typedRequestArg);
+    } else if (typedRequestArg.correlation.phase === 'response') {
+
     }
-
-    typedRequestArg = await typedHandler.addResponse(typedRequestArg);
     return typedRequestArg;
   }
 }

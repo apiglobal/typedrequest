@@ -1,7 +1,9 @@
 import * as plugins from './typedrequest.plugins';
 import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
+import { TypedRouter } from './typedrequest.classes.typedrouter';
 
 export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest> {
+  public typedRouterRef: TypedRouter;
   public webrequest = new plugins.webrequest.WebRequest();
   public urlEndPoint: string;
   public method: string;
@@ -13,14 +15,20 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   }
 
   /**
-   * firest the request
+   * fires the request
    */
   public async fire(fireArg: T['request']): Promise<T['response']> {
-    const response = await this.webrequest.postJson(this.urlEndPoint, {
+    const payload: plugins.typedRequestInterfaces.ITypedRequest = {
       method: this.method,
       request: fireArg,
-      response: null
-    });
+      response: null,
+      correlation: {
+        id: plugins.isounique.uni(),
+        phase: 'request'
+      }
+    };
+
+    const response = await this.webrequest.postJson(this.urlEndPoint, payload);
     const responseBody: T = response;
     if (responseBody.error) {
       console.error(
@@ -41,4 +49,13 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
     }
     return responseBody.response;
   }
+
+  public addTypedRouterForResponse(typedRouterArg: TypedRouter) {
+    if (!this.typedRouterRef) {
+      this.typedRouterRef = typedRouterArg;
+      typedRouterArg.addTypedRequest(this);
+    }
+  }
+
+  public registerAlternateFireMethod() {}
 }

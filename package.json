@@ -14,19 +14,20 @@
   },
   "devDependencies": {
     "@gitzone/tsbuild": "^2.1.24",
-    "@gitzone/tsbundle": "^1.0.69",
-    "@gitzone/tstest": "^1.0.33",
-    "@pushrocks/smartexpress": "^3.0.72",
-    "@pushrocks/tapbundle": "^3.2.1",
-    "@types/node": "^14.0.14",
+    "@gitzone/tsbundle": "^1.0.72",
+    "@gitzone/tstest": "^1.0.43",
+    "@pushrocks/smartexpress": "^3.0.73",
+    "@pushrocks/tapbundle": "^3.2.9",
+    "@types/node": "^14.0.23",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
-    "@apiglobal/typedrequest-interfaces": "^1.0.13",
-    "@pushrocks/lik": "^4.0.13",
-    "@pushrocks/smartdelay": "^2.0.9",
-    "@pushrocks/webrequest": "^2.0.9"
+    "@apiglobal/typedrequest-interfaces": "^1.0.15",
+    "@pushrocks/isounique": "^1.0.4",
+    "@pushrocks/lik": "^4.0.14",
+    "@pushrocks/smartdelay": "^2.0.10",
+    "@pushrocks/webrequest": "^2.0.10"
   },
   "files": [
     "ts/**/*",
