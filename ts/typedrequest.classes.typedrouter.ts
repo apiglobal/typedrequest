@@ -12,21 +12,15 @@ export class TypedRouter {
   public upstreamTypedRouter: TypedRouter;
 
   public routerMap = new plugins.lik.ObjectMap<TypedRouter>();
-  public typedRequestMap = new plugins.lik.ObjectMap<TypedRequest<any>>();
 
   public handlerMap = new plugins.lik.ObjectMap<
     TypedHandler<plugins.typedRequestInterfaces.ITypedRequest>
   >();
 
-  public fireEventInterestMap = new plugins.lik.InterestMap((correlationId: string) => correlationId);
-
-  public addTypedRequest(typedRequestArg: TypedRequest<any>) {
-    if(!this.typedRequestMap.checkForObject(typedRequestArg)) {
-      this.typedRequestMap.add(typedRequestArg);
-      typedRequestArg.addTypedRouterForResponse(this);
-    }
-  }
-
+  public fireEventInterestMap = new plugins.lik.InterestMap<
+    string,
+    plugins.typedRequestInterfaces.ITypedRequest
+  >((correlationId: string) => correlationId);
 
   /**
    * adds the handler to the routing map
@@ -112,7 +106,7 @@ export class TypedRouter {
 
       typedRequestArg = await typedHandler.addResponse(typedRequestArg);
     } else if (typedRequestArg.correlation.phase === 'response') {
-
+      this.fireEventInterestMap.findInterest(typedRequestArg.correlation.id)?.fullfillInterest(typedRequestArg);
     }
     return typedRequestArg;
   }

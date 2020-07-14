@@ -25,8 +25,9 @@
   "dependencies": {
     "@apiglobal/typedrequest-interfaces": "^1.0.15",
     "@pushrocks/isounique": "^1.0.4",
-    "@pushrocks/lik": "^4.0.14",
+    "@pushrocks/lik": "^4.0.17",
     "@pushrocks/smartdelay": "^2.0.10",
+    "@pushrocks/smartpromise": "^3.0.6",
     "@pushrocks/webrequest": "^2.0.10"
   },
   "files": [

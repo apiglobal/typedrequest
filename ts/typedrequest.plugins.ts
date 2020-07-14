@@ -7,6 +7,7 @@ export { typedRequestInterfaces };
 import * as isounique from '@pushrocks/isounique';
 import * as lik from '@pushrocks/lik';
 import * as smartdelay from '@pushrocks/smartdelay';
+import * as smartpromise from '@pushrocks/smartpromise';
 import * as webrequest from '@pushrocks/webrequest';
 
-export { isounique, lik, smartdelay, webrequest };
+export { isounique, lik, smartdelay, smartpromise, webrequest };
