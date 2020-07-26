@@ -33,12 +33,11 @@ tap.test('should spawn a server to test with', async () => {
 });
 
 tap.test('should define a testHandler', async () => {
+  const testTypedRouter = new typedrequest.TypedRouter();
+  testTypedRouter.addTypedHandler(testTypedHandler);
   testServer.addRoute(
     '/testroute',
-    new smartexpress.Handler('POST', async (req, res) => {
-      console.log(req.body);
-      res.json(await testTypedHandler.addResponse(req.body));
-    })
+    new smartexpress.HandlerTypedRouter(testTypedRouter as any)
   );
 });
 

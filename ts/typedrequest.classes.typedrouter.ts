@@ -106,7 +106,9 @@ export class TypedRouter {
 
       typedRequestArg = await typedHandler.addResponse(typedRequestArg);
     } else if (typedRequestArg.correlation.phase === 'response') {
-      this.fireEventInterestMap.findInterest(typedRequestArg.correlation.id)?.fullfillInterest(typedRequestArg);
+      this.fireEventInterestMap
+        .findInterest(typedRequestArg.correlation.id)
+        ?.fullfillInterest(typedRequestArg);
     }
     return typedRequestArg;
   }
