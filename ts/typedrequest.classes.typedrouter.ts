@@ -92,7 +92,7 @@ export class TypedRouter {
    * @param typedRequestArg
    */
   public async routeAndAddResponse(typedRequestArg: plugins.typedRequestInterfaces.ITypedRequest) {
-    if (typedRequestArg.correlation.phase === 'request') {
+    if (!typedRequestArg?.correlation?.phase || typedRequestArg.correlation.phase === 'request') {
       const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 
       if (!typedHandler) {
