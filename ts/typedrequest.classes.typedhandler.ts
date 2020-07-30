@@ -47,7 +47,7 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
       typedRequestArg.response = response;
     }
 
-    typedRequestArg.correlation.phase = 'response';
+    typedRequestArg?.correlation?.phase ? typedRequestArg.correlation.phase = 'response' : null;
 
     return typedRequestArg;
   }
