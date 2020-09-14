@@ -6,6 +6,7 @@ import * as typedrequest from '../ts/index';
 let testServer: smartexpress.Server;
 let testTypedHandler: typedrequest.TypedHandler<ITestReqRes>;
 
+// lets define an interface
 interface ITestReqRes {
   method: 'hi';
   request: {
@@ -17,6 +18,7 @@ interface ITestReqRes {
 }
 
 tap.test('should create a typedHandler', async () => {
+  // lets use the interface in a TypedHandler
   testTypedHandler = new typedrequest.TypedHandler<ITestReqRes>('hi', async reqArg => {
     return {
       surname: 'wow'
@@ -33,7 +35,7 @@ tap.test('should spawn a server to test with', async () => {
 });
 
 tap.test('should define a testHandler', async () => {
-  const testTypedRouter = new typedrequest.TypedRouter();
+  const testTypedRouter = new typedrequest.TypedRouter(); // typed routers can broker typedrequests between handlers
   testTypedRouter.addTypedHandler(testTypedHandler);
   testServer.addRoute(
     '/testroute',

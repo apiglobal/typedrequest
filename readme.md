@@ -27,6 +27,76 @@ Platform support | [![Supports Windows 10](https://badgen.net/badge/supports%20W
 
 Use TypeScript for best in class intellisense.
 
+```typescript
+import { expect, tap } from '@pushrocks/tapbundle';
+import * as smartexpress from '@pushrocks/smartexpress';
+
+import * as typedrequest from '../ts/index';
+
+let testServer: smartexpress.Server;
+let testTypedHandler: typedrequest.TypedHandler<ITestReqRes>;
+
+// lets define an interface
+interface ITestReqRes {
+  method: 'hi';
+  request: {
+    name: string;
+  };
+  response: {
+    surname: string;
+  };
+}
+
+tap.test('should create a typedHandler', async () => {
+  // lets use the interface in a TypedHandler
+  testTypedHandler = new typedrequest.TypedHandler<ITestReqRes>('hi', async reqArg => {
+    return {
+      surname: 'wow'
+    };
+  });
+});
+
+tap.test('should spawn a server to test with', async () => {
+  testServer = new smartexpress.Server({
+    cors: true,
+    forceSsl: false,
+    port: 3000
+  });
+});
+
+tap.test('should define a testHandler', async () => {
+  const testTypedRouter = new typedrequest.TypedRouter(); // typed routers can broker typedrequests between handlers
+  testTypedRouter.addTypedHandler(testTypedHandler);
+  testServer.addRoute(
+    '/testroute',
+    new smartexpress.HandlerTypedRouter(testTypedRouter as any)
+  );
+});
+
+tap.test('should start the server', async () => {
+  await testServer.start();
+});
+
+tap.test('should fire a request', async () => {
+  const typedRequest = new typedrequest.TypedRequest<ITestReqRes>(
+    'http://localhost:3000/testroute',
+    'hi'
+  );
+  const response = await typedRequest.fire({
+    name: 'really'
+  });
+  console.log('this is the response:');
+  console.log(response);
+  expect(response.surname).to.equal('wow');
+});
+
+tap.test('should end the server', async () => {
+  await testServer.stop();
+});
+
+tap.start();
+```
+
 ## Contribution
 
 We are always happy for code contributions. If you are not the code contributing type that is ok. Still, maintaining Open Source repositories takes considerable time and thought. If you like the quality of what we do and our modules are useful to you we would appreciate a little monthly contribution: You can [contribute one time](https://lossless.link/contribute-onetime) or [contribute monthly](https://lossless.link/contribute). :)
