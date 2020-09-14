@@ -39,7 +39,7 @@ tap.test('should define a testHandler', async () => {
   testTypedRouter.addTypedHandler(testTypedHandler);
   testServer.addRoute(
     '/testroute',
-    new smartexpress.HandlerTypedRouter(testTypedRouter as any)
+    new smartexpress.HandlerTypedRouter(testTypedRouter as any) // the "any" is testspecific, since smartexpress ships with its own version of typedrequest.
   );
 });
 
