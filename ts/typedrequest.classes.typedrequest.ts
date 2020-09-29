@@ -7,6 +7,9 @@ export type IPostMethod = (
 ) => void | Promise<plugins.typedRequestInterfaces.ITypedRequest>;
 
 export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest> {
+  /**
+   * this typedrouter allows us to have easy async request response cycles
+   */
   public typedRouterRef: TypedRouter;
   public webrequest = new plugins.webrequest.WebRequest();
 
@@ -59,6 +62,7 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
           string,
           plugins.typedRequestInterfaces.ITypedRequest
       >;
+      // having a typedrouter allows us to work with async request response cycles.
       if (this.typedRouterRef) {
         responseInterest = await this.typedRouterRef.fireEventInterestMap.addInterest(
           payload.correlation.id,
