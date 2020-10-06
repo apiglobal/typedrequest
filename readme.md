@@ -49,9 +49,9 @@ interface ITestReqRes {
 
 tap.test('should create a typedHandler', async () => {
   // lets use the interface in a TypedHandler
-  testTypedHandler = new typedrequest.TypedHandler<ITestReqRes>('hi', async reqArg => {
+  testTypedHandler = new typedrequest.TypedHandler<ITestReqRes>('hi', async (reqArg) => {
     return {
-      surname: 'wow'
+      surname: 'wow',
     };
   });
 });
@@ -60,7 +60,7 @@ tap.test('should spawn a server to test with', async () => {
   testServer = new smartexpress.Server({
     cors: true,
     forceSsl: false,
-    port: 3000
+    port: 3000,
   });
 });
 
@@ -83,7 +83,7 @@ tap.test('should fire a request', async () => {
     'hi'
   );
   const response = await typedRequest.fire({
-    name: 'really'
+    name: 'really',
   });
   console.log('this is the response:');
   console.log(response);

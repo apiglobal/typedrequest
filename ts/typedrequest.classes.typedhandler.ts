@@ -28,7 +28,7 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
       );
     }
     let typedResponseError: TypedResponseError;
-    const response = await this.handlerFunction(typedRequestArg.request).catch(e => {
+    const response = await this.handlerFunction(typedRequestArg.request).catch((e) => {
       if (e instanceof TypedResponseError) {
         typedResponseError = e;
       } else {
@@ -39,7 +39,7 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
     if (typedResponseError) {
       typedRequestArg.error = {
         text: typedResponseError.errorText,
-        data: typedResponseError.errorData
+        data: typedResponseError.errorData,
       };
     }
 
@@ -47,7 +47,7 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
       typedRequestArg.response = response;
     }
 
-    typedRequestArg?.correlation?.phase ? typedRequestArg.correlation.phase = 'response' : null;
+    typedRequestArg?.correlation?.phase ? (typedRequestArg.correlation.phase = 'response') : null;
 
     return typedRequestArg;
   }

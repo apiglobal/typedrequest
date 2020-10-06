@@ -29,15 +29,12 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   public method: string;
 
   // STATIC
-  constructor(
-    postEndPointArg: string | IPostMethod,
-    methodArg: T['method']
-  )
+  constructor(postEndPointArg: string | IPostMethod, methodArg: T['method']);
   constructor(
     postEndPointArg: string | IPostMethodWithTypedRouter,
     methodArg: T['method'],
-    typedrouterRefArg?: TypedRouter)
-  {
+    typedrouterRefArg?: TypedRouter
+  ) {
     if (typeof postEndPointArg === 'string') {
       this.urlEndPoint = postEndPointArg;
     } else {
@@ -67,8 +64,8 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
       responseBody = response;
     } else {
       let responseInterest: plugins.lik.Interest<
-          string,
-          plugins.typedRequestInterfaces.ITypedRequest
+        string,
+        plugins.typedRequestInterfaces.ITypedRequest
       >;
       // having a typedrouter allows us to work with async request response cycles.
       if (this.typedRouterRef) {
