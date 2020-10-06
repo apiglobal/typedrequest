@@ -1,7 +1,7 @@
 import * as plugins from './typedrequest.plugins';
 import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
 
-type THandlerFunction<T extends plugins.typedRequestInterfaces.ITypedRequest> = (
+export type THandlerFunction<T extends plugins.typedRequestInterfaces.ITypedRequest> = (
   requestArg: T['request']
 ) => Promise<T['response']>;
 
