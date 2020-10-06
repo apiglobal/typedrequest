@@ -110,6 +110,5 @@ export class TypedRouter {
         .findInterest(typedRequestArg.correlation.id)
         ?.fullfillInterest(typedRequestArg);
     }
-    return typedRequestArg;
   }
 }
