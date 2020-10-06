@@ -109,6 +109,12 @@ export class TypedRouter {
       this.fireEventInterestMap
         .findInterest(typedRequestArg.correlation.id)
         ?.fullfillInterest(typedRequestArg);
+        return {
+          ...typedRequestArg,
+          ...{
+            method: 'nullPathFromResponse'
+          }
+        };
     }
   }
 }
