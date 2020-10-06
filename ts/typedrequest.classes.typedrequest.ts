@@ -4,7 +4,11 @@ import { TypedRouter } from './typedrequest.classes.typedrouter';
 
 export type IPostMethod = (
   typedRequestPostObject: plugins.typedRequestInterfaces.ITypedRequest
-) => void | Promise<plugins.typedRequestInterfaces.ITypedRequest>;
+) => Promise<plugins.typedRequestInterfaces.ITypedRequest>;
+
+export type IPostMethodWithTypedRouter = (
+  typedRequestPostObject: plugins.typedRequestInterfaces.ITypedRequest
+) => Promise<void> | Promise<plugins.typedRequestInterfaces.ITypedRequest>;
 
 export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest> {
   /**
@@ -21,15 +25,19 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   /**
    * in case we post with some other method, ec ipc communication
    */
-  public postMethod?: IPostMethod;
+  public postMethod?: IPostMethod | IPostMethodWithTypedRouter;
   public method: string;
 
   // STATIC
   constructor(
     postEndPointArg: string | IPostMethod,
+    methodArg: T['method']
+  )
+  constructor(
+    postEndPointArg: string | IPostMethodWithTypedRouter,
     methodArg: T['method'],
-    typedrouterRefArg?: TypedRouter
-  ) {
+    typedrouterRefArg?: TypedRouter)
+  {
     if (typeof postEndPointArg === 'string') {
       this.urlEndPoint = postEndPointArg;
     } else {
