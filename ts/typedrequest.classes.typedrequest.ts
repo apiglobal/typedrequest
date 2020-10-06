@@ -33,6 +33,11 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   constructor(
     postEndPointArg: string | IPostMethodWithTypedRouter,
     methodArg: T['method'],
+    typedrouterRefArg: TypedRouter
+  );
+  constructor(
+    postEndPointArg: string | IPostMethodWithTypedRouter,
+    methodArg: T['method'],
     typedrouterRefArg?: TypedRouter
   ) {
     if (typeof postEndPointArg === 'string') {
