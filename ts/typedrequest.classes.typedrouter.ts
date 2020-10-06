@@ -109,12 +109,16 @@ export class TypedRouter {
       this.fireEventInterestMap
         .findInterest(typedRequestArg.correlation.id)
         ?.fullfillInterest(typedRequestArg);
-        return {
-          ...typedRequestArg,
-          ...{
-            method: 'nullPathFromResponse'
-          }
-        };
+    } else {
+      console.log('received weirdly shaped request');
+      console.log(typedRequestArg);
+      return {}
     }
+    return {
+      ...typedRequestArg,
+      ...{
+        method: 'nullPathFromResponse',
+      },
+    };
   }
 }
