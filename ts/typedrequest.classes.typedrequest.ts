@@ -1,21 +1,12 @@
 import * as plugins from './typedrequest.plugins';
 import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
 import { TypedRouter } from './typedrequest.classes.typedrouter';
+import { TypedTarget } from './typedrequest.classes.typedtarget';
 
-export type IPostMethod = (
-  typedRequestPostObject: plugins.typedRequestInterfaces.ITypedRequest
-) => Promise<plugins.typedRequestInterfaces.ITypedRequest>;
-
-export type IPostMethodWithTypedRouter = (
-  typedRequestPostObject: plugins.typedRequestInterfaces.ITypedRequest
-) => Promise<void> | Promise<plugins.typedRequestInterfaces.ITypedRequest>;
+const webrequestInstance = new plugins.webrequest.WebRequest();
 
 export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest> {
-  /**
-   * this typedrouter allows us to have easy async request response cycles
-   */
-  public typedRouterRef: TypedRouter;
-  public webrequest = new plugins.webrequest.WebRequest();
+
 
   /**
    * in case we post against a url endpoint
@@ -23,30 +14,24 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   public urlEndPoint?: string;
 
   /**
-   * in case we post with some other method, ec ipc communication
+   * in case we post against a TypedTarget
    */
-  public postMethod?: IPostMethod | IPostMethodWithTypedRouter;
+  typedTarget: TypedTarget;
+
   public method: string;
 
-  // STATIC
-  constructor(postEndPointArg: string | IPostMethod, methodArg: T['method']);
-  constructor(
-    postEndPointArg: string | IPostMethodWithTypedRouter,
-    methodArg: T['method'],
-    typedrouterRefArg: TypedRouter
-  );
-  constructor(
-    postEndPointArg: string | IPostMethodWithTypedRouter,
-    methodArg: T['method'],
-    typedrouterRefArg?: TypedRouter
-  ) {
-    if (typeof postEndPointArg === 'string') {
-      this.urlEndPoint = postEndPointArg;
+  /**
+   * note the overloading is thought to deak with promises
+   * @param postEndPointArg
+   * @param methodArg 
+   */
+  constructor(postTarget: string | TypedTarget, methodArg: T['method']) {
+    if (typeof postTarget === 'string') {
+      this.urlEndPoint = postTarget;
     } else {
-      this.postMethod = postEndPointArg;
+      this.typedTarget = postTarget;
     }
     this.method = methodArg;
-    this.typedRouterRef = typedrouterRefArg;
   }
 
   /**
@@ -65,28 +50,10 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
 
     let responseBody: plugins.typedRequestInterfaces.ITypedRequest;
     if (this.urlEndPoint) {
-      const response = await this.webrequest.postJson(this.urlEndPoint, payload);
+      const response = await webrequestInstance.postJson(this.urlEndPoint, payload);
       responseBody = response;
     } else {
-      let responseInterest: plugins.lik.Interest<
-        string,
-        plugins.typedRequestInterfaces.ITypedRequest
-      >;
-      // having a typedrouter allows us to work with async request response cycles.
-      if (this.typedRouterRef) {
-        responseInterest = await this.typedRouterRef.fireEventInterestMap.addInterest(
-          payload.correlation.id,
-          payload
-        );
-      }
-      const postMethodReturnValue = await this.postMethod(payload);
-      if (responseInterest) {
-        responseBody = await responseInterest.interestFullfilled;
-      } else if (postMethodReturnValue) {
-        responseBody = postMethodReturnValue;
-      } else {
-        responseBody = payload;
-      }
+      responseBody = await this.typedTarget.post(payload);
     }
     if (responseBody.error) {
       console.error(

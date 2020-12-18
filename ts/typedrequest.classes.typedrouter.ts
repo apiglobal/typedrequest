@@ -14,7 +14,7 @@ export class TypedRouter {
   public routerMap = new plugins.lik.ObjectMap<TypedRouter>();
 
   public handlerMap = new plugins.lik.ObjectMap<
-    TypedHandler<plugins.typedRequestInterfaces.ITypedRequest>
+    TypedHandler<any & plugins.typedRequestInterfaces.ITypedRequest>
   >();
 
   public fireEventInterestMap = new plugins.lik.InterestMap<
