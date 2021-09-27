@@ -70,7 +70,7 @@ export class TypedRouter {
     if (this.upstreamTypedRouter && checkUpstreamRouter) {
       typedHandler = this.upstreamTypedRouter.getTypedHandlerForMethod(methodArg);
     } else {
-      typedHandler = this.handlerMap.find((handler) => {
+      typedHandler = this.handlerMap.findSync((handler) => {
         return handler.method === methodArg;
       });
 
