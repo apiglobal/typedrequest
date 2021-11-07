@@ -91,7 +91,7 @@ export class TypedRouter {
    * if typedrequest object has correlation.phase === 'response' -> routes a typed request object to request fire event
    * @param typedRequestArg
    */
-  public async routeAndAddResponse(typedRequestArg: plugins.typedRequestInterfaces.ITypedRequest) {
+  public async routeAndAddResponse<T extends plugins.typedRequestInterfaces.ITypedRequest = any>(typedRequestArg: T) {
     if (!typedRequestArg?.correlation?.phase || typedRequestArg.correlation.phase === 'request') {
       const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 

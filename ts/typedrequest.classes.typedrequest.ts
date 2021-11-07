@@ -21,7 +21,7 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   public method: string;
 
   /**
-   * note the overloading is thought to deak with promises
+   * note the overloading is thought to deal with promises
    * @param postEndPointArg
    * @param methodArg 
    */

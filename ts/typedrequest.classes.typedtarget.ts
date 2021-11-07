@@ -6,6 +6,7 @@ export type IPostMethod = (
 ) => Promise<plugins.typedRequestInterfaces.ITypedRequest>;
 
 /**
+ * this is an alternative to a post url supplied in `new Typedrequest(new TypedTarget(...), 'someMethodName')`
  * enables the use of custom post functions
  * used for things like broadcast channels
  * e.g. @designestate/dees-comms
