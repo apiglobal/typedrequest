@@ -91,7 +91,7 @@ export class TypedRouter {
    * if typedrequest object has correlation.phase === 'response' -> routes a typed request object to request fire event
    * @param typedRequestArg
    */
-  public async routeAndAddResponse<T extends plugins.typedRequestInterfaces.ITypedRequest = any>(typedRequestArg: T) {
+  public async routeAndAddResponse<T extends plugins.typedRequestInterfaces.ITypedRequest = any>(typedRequestArg: T): Promise<T> {
     if (!typedRequestArg?.correlation?.phase || typedRequestArg.correlation.phase === 'request') {
       const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 
@@ -112,13 +112,8 @@ export class TypedRouter {
     } else {
       console.log('received weirdly shaped request');
       console.log(typedRequestArg);
-      return {}
+      return null
     }
-    return {
-      ...typedRequestArg,
-      ...{
-        method: 'nullPathFromResponse',
-      },
-    };
+    return typedRequestArg;
   }
 }
