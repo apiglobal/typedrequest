@@ -15,7 +15,7 @@
   "devDependencies": {
     "@gitzone/tsbuild": "^2.1.28",
     "@gitzone/tsbundle": "^1.0.88",
-    "@gitzone/tstest": "^1.0.59",
+    "@gitzone/tstest": "^1.0.60",
     "@pushrocks/smartexpress": "^3.0.108",
     "@pushrocks/tapbundle": "^3.2.14",
     "@types/node": "^16.11.6",
