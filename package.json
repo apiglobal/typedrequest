@@ -13,12 +13,12 @@
     "format": "(gitzone format)"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.1.27",
-    "@gitzone/tsbundle": "^1.0.87",
-    "@gitzone/tstest": "^1.0.57",
-    "@pushrocks/smartexpress": "^3.0.106",
+    "@gitzone/tsbuild": "^2.1.28",
+    "@gitzone/tsbundle": "^1.0.88",
+    "@gitzone/tstest": "^1.0.59",
+    "@pushrocks/smartexpress": "^3.0.108",
     "@pushrocks/tapbundle": "^3.2.14",
-    "@types/node": "^16.10.1",
+    "@types/node": "^16.11.6",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0"
   },
