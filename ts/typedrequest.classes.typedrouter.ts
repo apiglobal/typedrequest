@@ -46,6 +46,7 @@ export class TypedRouter {
    */
   public addTypedRouter(typedRouterArg: TypedRouter) {
     this.routerMap.add(typedRouterArg);
+    typedRouterArg.setUpstreamTypedRouter(this);
   }
 
   public setUpstreamTypedRouter(typedRouterArg: TypedRouter) {
