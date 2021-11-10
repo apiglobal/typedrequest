@@ -9,10 +9,7 @@ import { TypedRequest } from './typedrequest.classes.typedrequest';
  * This is thought for reusing the same url endpoint for different methods
  */
 export class TypedRouter {
-  public upstreamTypedRouter: TypedRouter;
-
   public routerMap = new plugins.lik.ObjectMap<TypedRouter>();
-
   public handlerMap = new plugins.lik.ObjectMap<
     TypedHandler<any & plugins.typedRequestInterfaces.ITypedRequest>
   >();
@@ -45,12 +42,11 @@ export class TypedRouter {
    * @param typedRequest
    */
   public addTypedRouter(typedRouterArg: TypedRouter) {
-    this.routerMap.add(typedRouterArg);
-    typedRouterArg.setUpstreamTypedRouter(this);
-  }
-
-  public setUpstreamTypedRouter(typedRouterArg: TypedRouter) {
-    this.upstreamTypedRouter = typedRouterArg;
+    const routerExists = this.routerMap.findSync(routerArg => routerArg === typedRouterArg)
+    if (!routerExists) {
+      this.routerMap.add(typedRouterArg);
+      typedRouterArg.addTypedRouter(this);
+    }
   }
 
   public checkForTypedHandler(methodArg: string): boolean {
@@ -64,24 +60,22 @@ export class TypedRouter {
    */
   public getTypedHandlerForMethod(
     methodArg: string,
-    checkUpstreamRouter = true
+    checkedRouters: TypedRouter[] = []
   ): TypedHandler<any> {
+    checkedRouters.push(this);
+
     let typedHandler: TypedHandler<any>;
 
-    if (this.upstreamTypedRouter && checkUpstreamRouter) {
-      typedHandler = this.upstreamTypedRouter.getTypedHandlerForMethod(methodArg);
-    } else {
-      typedHandler = this.handlerMap.findSync((handler) => {
-        return handler.method === methodArg;
+    typedHandler = this.handlerMap.findSync((handler) => {
+      return handler.method === methodArg;
+    });
+    
+    if (!typedHandler) {
+      this.routerMap.getArray().forEach((typedRouterArg) => {
+        if (!typedHandler && !checkedRouters.includes(typedRouterArg)) {
+          typedHandler = typedRouterArg.getTypedHandlerForMethod(methodArg, checkedRouters);
+        }
       });
-
-      if (!typedHandler) {
-        this.routerMap.getArray().forEach((typedRouter) => {
-          if (!typedHandler) {
-            typedHandler = typedRouter.getTypedHandlerForMethod(methodArg, false);
-          }
-        });
-      }
     }
 
     return typedHandler;
