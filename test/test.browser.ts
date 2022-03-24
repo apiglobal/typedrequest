@@ -1,6 +1,6 @@
 import { expect, tap } from '@pushrocks/tapbundle';
 
-import * as typedrequest from '../ts/index';
+import * as typedrequest from '../ts/index.js';
 
 let testTypedHandler: typedrequest.TypedHandler<ITestReqRes>;
 

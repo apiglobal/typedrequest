@@ -1,4 +1,4 @@
-import * as plugins from './typedrequest.plugins';
+import * as plugins from './typedrequest.plugins.js';
 
 export class TypedResponseError {
   public errorText: string;

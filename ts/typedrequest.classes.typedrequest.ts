@@ -1,7 +1,7 @@
-import * as plugins from './typedrequest.plugins';
-import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
-import { TypedRouter } from './typedrequest.classes.typedrouter';
-import { TypedTarget } from './typedrequest.classes.typedtarget';
+import * as plugins from './typedrequest.plugins.js';
+import { TypedResponseError } from './typedrequest.classes.typedresponseerror.js';
+import { TypedRouter } from './typedrequest.classes.typedrouter.js';
+import { TypedTarget } from './typedrequest.classes.typedtarget.js';
 
 const webrequestInstance = new plugins.webrequest.WebRequest();
 

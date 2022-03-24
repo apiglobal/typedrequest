@@ -1,7 +1,7 @@
-import * as plugins from './typedrequest.plugins';
+import * as plugins from './typedrequest.plugins.js';
 
-import { TypedHandler } from './typedrequest.classes.typedhandler';
-import { TypedRequest } from './typedrequest.classes.typedrequest';
+import { TypedHandler } from './typedrequest.classes.typedhandler.js';
+import { TypedRequest } from './typedrequest.classes.typedrequest.js';
 
 /**
  * A typed router decides on which typed handler to call based on the method

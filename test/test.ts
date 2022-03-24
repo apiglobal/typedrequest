@@ -1,7 +1,7 @@
 import { expect, tap } from '@pushrocks/tapbundle';
 import * as smartexpress from '@pushrocks/smartexpress';
 
-import * as typedrequest from '../ts/index';
+import * as typedrequest from '../ts/index.js';
 
 let testServer: smartexpress.Server;
 let testTypedHandler: typedrequest.TypedHandler<ITestReqRes>;
@@ -57,7 +57,7 @@ tap.test('should fire a request', async () => {
   });
   console.log('this is the response:');
   console.log(response);
-  expect(response.surname).to.equal('wow');
+  expect(response.surname).toEqual('wow');
 });
 
 tap.test('should end the server', async () => {

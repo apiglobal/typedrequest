@@ -1,5 +1,5 @@
-import * as plugins from './typedrequest.plugins';
-import { TypedResponseError } from './typedrequest.classes.typedresponseerror';
+import * as plugins from './typedrequest.plugins.js';
+import { TypedResponseError } from './typedrequest.classes.typedresponseerror.js';
 
 export type THandlerFunction<T extends plugins.typedRequestInterfaces.ITypedRequest> = (
   requestArg: T['request']

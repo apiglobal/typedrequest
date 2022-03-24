@@ -1,5 +1,5 @@
-import { TypedRouter } from './typedrequest.classes.typedrouter';
-import * as plugins from './typedrequest.plugins';
+import { TypedRouter } from './typedrequest.classes.typedrouter.js';
+import * as plugins from './typedrequest.plugins.js';
 
 export type IPostMethod = (
   typedRequestPostObject: plugins.typedRequestInterfaces.ITypedRequest
