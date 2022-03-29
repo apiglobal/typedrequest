@@ -23,7 +23,7 @@ export class TypedRouter {
    * adds the handler to the routing map
    * @param typedHandlerArg
    */
-  public addTypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest>(
+  public addTypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest> (
     typedHandlerArg: TypedHandler<T>
   ) {
     // lets check for deduplication
@@ -41,7 +41,7 @@ export class TypedRouter {
    * adds another sub typedRouter
    * @param typedRequest
    */
-  public addTypedRouter(typedRouterArg: TypedRouter) {
+  public addTypedRouter (typedRouterArg: TypedRouter) {
     const routerExists = this.routerMap.findSync(routerArg => routerArg === typedRouterArg)
     if (!routerExists) {
       this.routerMap.add(typedRouterArg);
@@ -49,7 +49,7 @@ export class TypedRouter {
     }
   }
 
-  public checkForTypedHandler(methodArg: string): boolean {
+  public checkForTypedHandler (methodArg: string): boolean {
     return !!this.getTypedHandlerForMethod(methodArg);
   }
 
@@ -58,7 +58,7 @@ export class TypedRouter {
    * @param methodArg
    * @param checkUpstreamRouter
    */
-  public getTypedHandlerForMethod(
+  public getTypedHandlerForMethod (
     methodArg: string,
     checkedRouters: TypedRouter[] = []
   ): TypedHandler<any> {
@@ -69,7 +69,7 @@ export class TypedRouter {
     typedHandler = this.handlerMap.findSync((handler) => {
       return handler.method === methodArg;
     });
-    
+
     if (!typedHandler) {
       this.routerMap.getArray().forEach((typedRouterArg) => {
         if (!typedHandler && !checkedRouters.includes(typedRouterArg)) {
@@ -86,7 +86,7 @@ export class TypedRouter {
    * if typedrequest object has correlation.phase === 'response' -> routes a typed request object to request fire event
    * @param typedRequestArg
    */
-  public async routeAndAddResponse<T extends plugins.typedRequestInterfaces.ITypedRequest = any>(typedRequestArg: T): Promise<T> {
+  public async routeAndAddResponse<T extends plugins.typedRequestInterfaces.ITypedRequest = plugins.typedRequestInterfaces.ITypedRequest> (typedRequestArg: T): Promise<T> {
     if (typedRequestArg?.correlation?.phase === 'request') {
       const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 
@@ -106,6 +106,7 @@ export class TypedRouter {
       this.fireEventInterestMap
         .findInterest(typedRequestArg.correlation.id)
         ?.fullfillInterest(typedRequestArg);
+      return null;
     } else {
       console.log('received weirdly shaped request');
       console.log(typedRequestArg);
