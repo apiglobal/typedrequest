@@ -87,7 +87,7 @@ export class TypedRouter {
    * @param typedRequestArg
    */
   public async routeAndAddResponse<T extends plugins.typedRequestInterfaces.ITypedRequest = any>(typedRequestArg: T): Promise<T> {
-    if (!typedRequestArg?.correlation?.phase || typedRequestArg.correlation.phase === 'request') {
+    if (typedRequestArg?.correlation?.phase === 'request') {
       const typedHandler = this.getTypedHandlerForMethod(typedRequestArg.method);
 
       if (!typedHandler) {
@@ -100,7 +100,8 @@ export class TypedRouter {
       }
 
       typedRequestArg = await typedHandler.addResponse(typedRequestArg);
-    } else if (typedRequestArg.correlation.phase === 'response') {
+      return typedRequestArg;
+    } else if (typedRequestArg?.correlation?.phase === 'response') {
       this.fireEventInterestMap
         .findInterest(typedRequestArg.correlation.id)
         ?.fullfillInterest(typedRequestArg);
@@ -109,6 +110,5 @@ export class TypedRouter {
       console.log(typedRequestArg);
       return null
     }
-    return typedRequestArg;
   }
 }
