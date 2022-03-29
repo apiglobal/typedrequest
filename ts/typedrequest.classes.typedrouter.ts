@@ -96,6 +96,7 @@ export class TypedRouter {
           text: 'There is no available method for this call on the server side',
           data: {},
         };
+        typedRequestArg.correlation.phase = 'response';
         return typedRequestArg;
       }
 
