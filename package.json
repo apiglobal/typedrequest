@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "test": "(tstest test/)",
-    "build": "(tsbuild --web && tsbundle npm)",
+    "build": "(tsbuild --web --allowimplicitany && tsbundle npm)",
     "format": "(gitzone format)"
   },
   "devDependencies": {
