@@ -30,7 +30,7 @@
     "@pushrocks/lik": "^6.0.0",
     "@pushrocks/smartdelay": "^2.0.13",
     "@pushrocks/smartpromise": "^3.1.7",
-    "@pushrocks/webrequest": "^3.0.6"
+    "@pushrocks/webrequest": "^3.0.7"
   },
   "files": [
     "ts/**/*",
