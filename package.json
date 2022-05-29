@@ -1,6 +1,6 @@
 {
   "name": "@apiglobal/typedrequest",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "private": false,
   "description": "make typed requests towards apis",
   "main": "dist_ts/index.js",
