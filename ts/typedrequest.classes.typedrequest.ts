@@ -37,7 +37,7 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
   /**
    * fires the request
    */
-  public async fire(fireArg: T['request']): Promise<T['response']> {
+  public async fire(fireArg: T['request'], useCacheArg: boolean = false): Promise<T['response']> {
     const payload: plugins.typedRequestInterfaces.ITypedRequest = {
       method: this.method,
       request: fireArg,
@@ -50,7 +50,7 @@ export class TypedRequest<T extends plugins.typedRequestInterfaces.ITypedRequest
 
     let responseBody: plugins.typedRequestInterfaces.ITypedRequest;
     if (this.urlEndPoint) {
-      const response = await webrequestInstance.postJson(this.urlEndPoint, payload);
+      const response = await webrequestInstance.postJson(this.urlEndPoint, payload, useCacheArg);
       responseBody = response;
     } else {
       responseBody = await this.typedTarget.post(payload);
