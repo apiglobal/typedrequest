@@ -32,7 +32,7 @@ export class TypedHandler<T extends plugins.typedRequestInterfaces.ITypedRequest
       if (e instanceof TypedResponseError) {
         typedResponseError = e;
       } else {
-        throw e;
+        console.log(e);
       }
     });
 
