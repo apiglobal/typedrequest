@@ -14,13 +14,13 @@
     "format": "(gitzone format)"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.1.63",
-    "@gitzone/tsbundle": "^2.0.6",
-    "@gitzone/tstest": "^1.0.72",
-    "@pushrocks/smartenv": "^5.0.2",
-    "@pushrocks/smartexpress": "^4.0.5",
+    "@gitzone/tsbuild": "^2.1.65",
+    "@gitzone/tsbundle": "^2.0.7",
+    "@gitzone/tstest": "^1.0.73",
+    "@pushrocks/smartenv": "^5.0.3",
+    "@pushrocks/smartexpress": "^4.0.21",
     "@pushrocks/tapbundle": "^5.0.4",
-    "@types/node": "^18.6.2"
+    "@types/node": "^18.7.6"
   },
   "dependencies": {
     "@apiglobal/typedrequest-interfaces": "^1.0.15",
@@ -28,7 +28,7 @@
     "@pushrocks/lik": "^6.0.0",
     "@pushrocks/smartdelay": "^2.0.13",
     "@pushrocks/smartpromise": "^3.1.7",
-    "@pushrocks/webrequest": "^3.0.9"
+    "@pushrocks/webrequest": "^3.0.12"
   },
   "files": [
     "ts/**/*",

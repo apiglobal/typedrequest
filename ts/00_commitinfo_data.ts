@@ -3,6 +3,6 @@
  */
 export const commitinfo = {
   name: '@apiglobal/typedrequest',
-  version: '2.0.8',
+  version: '2.0.9',
   description: 'make typed requests towards apis'
 }
